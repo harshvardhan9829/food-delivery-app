@@ -1,0 +1,23 @@
+{
+  "name": "food-ordering-app",
+  "version": "1.0.0",
+  "description": "A foor ordering app created in React js",
+  
+  "scripts": {
+    "test": "jest",
+    "start": "npx parcel index.html"
+  },
+  "keywords": [
+    "react",
+    "js"
+  ],
+  "author": "Harsh vardhan kachhawah",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}
