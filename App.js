@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Header from './src/components/Header'
+import Body from './src/components/Body'
 
-function app() {
+const AppLayout = () => {
+  console.log(<Body />);
   return (
-    <div>app</div>
-  )
-}
+    <div className="app">
+      <Header />
+      <Body />
+      {/* <Footer /> */}
+    </div>
+  );
+};
 
-export default app
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<AppLayout />);
