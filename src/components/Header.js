@@ -8,16 +8,16 @@ const Header = () => {
     // }, [btnName])
     // console.log('header render')
     return (
-        <div className="header">
+        <div className="header flex justify-between items-center bg-stone-300 rounded-lg mt-5 mx-10 ">
             <div className="logo-container">
-                <img src={LOGO_URL} alt="App Logo" className="logo" />
+                <img src={LOGO_URL} alt="App Logo" className="logo w-16 mx-6 " />
             </div>
             <div className="nav-items">
-                <ul>
-                    <li><Link to={'/'}>Home</Link></li>
-                    <li><Link to={'/about'}>About Us</Link></li>
-                    <li><Link to={'/contact'}>Contact Us</Link></li>
-                    <li>Cart</li>
+                <ul className='flex justify-center items-center p-2 m-4'>
+                    <li className='px-4'><Link to={'/'}>Home</Link></li>
+                    <li className='px-4'><Link to={'/about'}>About Us</Link></li>
+                    <li className='px-4'><Link to={'/contact'}>Contact Us</Link></li>
+                    <li className='px-4'>Cart</li>
                     <button className='loginBtn' onClick={() => {
                         btnName === 'Login' ? setBtnName('Logout') : setBtnName('Login')
                     }}>{btnName}</button>
