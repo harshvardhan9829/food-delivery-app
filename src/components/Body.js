@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import RestaurantCard from './RestaurantCard'
+import React, { useContext, useEffect, useState } from 'react'
+import RestaurantCard, { withPromotedLabel } from './RestaurantCard'
 import Shimmer from './Shimmer';
 import { Link } from 'react-router-dom';
 import useInternetStatusHook from '../utils/useInternetStatusHook';
+import UserContext from '../utils/UserContext';
 
 
 
@@ -11,6 +12,8 @@ function Body() {
     const [listOfRestraunts, setlistOfRestraunts] = useState([]);
     const [filteredRestraunt, setFilteredRestraunt] = useState([]);
     const [searchText, setSearchText] = useState('');
+
+    const { loggedInUser, setUserName } = useContext(UserContext)
 
     useEffect(() => {
         fetchData();
@@ -22,10 +25,10 @@ function Body() {
         setlistOfRestraunts(restrauntData);
         setFilteredRestraunt(restrauntData)
     }
-
+    const RestraurentCardPromoted = withPromotedLabel(RestaurantCard)
 
     const internetStatus = useInternetStatusHook();
-    if(internetStatus=== false) return <h1>Oops, looks like you are offline. Please check your internet connection!</h1>
+    if (internetStatus === false) return <h1>Oops, looks like you are offline. Please check your internet connection!</h1>
 
 
 
@@ -34,7 +37,7 @@ function Body() {
             <div className='body container'>
                 <div className="filter flex">
                     <div className="search m-4 p-4">
-                        <input type="text" name="search" id="" className='search-box' value={searchText}
+                        <input type="text" name="search" id="" className='searchBox border border-solid border-black' value={searchText}
                             onChange={(e) => { setSearchText(e.target.value) }} />
                         <button className='px-4 py-2 bg-green-100 m-4 rounded-lg' onClick={() => {
                             // filter cards
@@ -43,15 +46,28 @@ function Body() {
                             setFilteredRestraunt(filteredData)
                         }}>Search</button>
                     </div>
-                    <button className='filter-btn'
-                        onClick={() => {
-                            let temp = listOfRestraunts.filter((res) => { return res.info.avgRating > 4 })
-                            setlistOfRestraunts(temp)
-                        }} >Top Rated Restaurants</button>
+
+                    <div className="search m-4 p-4 flex items-center">
+                        <button className='filter-btn px-4 py-2 bg-gray-100 m-4 rounded-lg'
+                            onClick={() => {
+                                let temp = listOfRestraunts.filter((res) => { return res.info.avgRating > 4 })
+                                setlistOfRestraunts(temp)
+                            }} >Top Rated Restaurants</button>
+
+                    </div>
+                    <div className="search m-4 p-4 flex items-center">
+                        <label htmlFor="">UserName: </label>
+                        <input type="text" className='border border-solid border-black'
+                            value={loggedInUser}
+                            onChange={(e) => { setUserName(e.target.value) }} />
+
+                    </div>
                 </div>
                 <div className=" flex  flex-wrap justify-around">
                     {filteredRestraunt.map((restaurant) => {
-                        return <Link key={restaurant.info.id} to={'restaurants/' + restaurant.info.id} ><RestaurantCard  resData={restaurant} /></Link>
+                        return <Link key={restaurant.info.id} to={'restaurants/' + restaurant.info.id} >
+                            {restaurant.info?.promoted ? <RestraurentCardPromoted resData={restaurant} /> : <RestaurantCard resData={restaurant} />}
+                        </Link>
                     })
                     }
                 </div>

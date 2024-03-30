@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import Header from './src/components/Header'
 import Body from './src/components/Body'
@@ -7,16 +7,28 @@ import About from './src/components/About';
 import Contact from './src/components/Contact';
 import Error from './src/components/Error';
 import RestaurantMenu from './src/components/RestaurantMenu';
-
+import UserContext from './src/utils/UserContext';
 
 
 const AppLayout = (props) => {
+
+
+  const [userName, setUserName] = useState();
+  useEffect(() => {
+    const data = {
+      name: 'Harsh vardhan'
+    }
+    setUserName(data.name)
+  }, [])
+
   console.log(props)
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <UserContext.Provider value={{ loggedInUser: userName ,setUserName}}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </UserContext.Provider>
   );
 };
 
