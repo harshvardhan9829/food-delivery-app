@@ -2,6 +2,10 @@ import { useState, useEffect, useContext } from 'react';
 import { LOGO_URL } from '../utils/constants';
 import { Link } from 'react-router-dom';
 import UserContext from '../utils/UserContext';
+import { useSelector } from 'react-redux';
+
+
+
 const Header = () => {
     const [btnName, setBtnName] = useState('Login');
     // useEffect(() => {
@@ -9,11 +13,12 @@ const Header = () => {
     // }, [btnName])
     // console.log('header render')
 
+    // Subscribing to the store using a selector
+    const cartItems = useSelector((store) => store.cart.items)
+    const { loggedInUser } = useContext(UserContext);
+    // console.log(data)
 
-const {loggedInUser} = useContext(UserContext);
-// console.log(data)
-    
-    
+
     return (
         <div className="header flex justify-between items-center bg-stone-300 rounded-lg mt-5 mx-10 ">
             <div className="logo-container">
@@ -24,7 +29,7 @@ const {loggedInUser} = useContext(UserContext);
                     <li className='px-4'><Link to={'/'}>Home</Link></li>
                     <li className='px-4'><Link to={'/about'}>About Us</Link></li>
                     <li className='px-4'><Link to={'/contact'}>Contact Us</Link></li>
-                    <li className='px-4'>Cart</ li>
+                    <li className='px-4 font-bold'>Cart ({cartItems.length} items)</ li>
                     <button className='loginBtn' onClick={() => {
                         btnName === 'Login' ? setBtnName('Logout') : setBtnName('Login')
                     }}>{btnName}</button>

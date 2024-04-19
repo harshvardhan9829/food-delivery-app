@@ -1,15 +1,21 @@
 import { CDN_URL } from "../utils/constants";
 import Veg from '../utils/images/veg-icon.png';
 import NonVeg from '../utils/images/non-veg-icon.png'
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/Redux store/cartSlice";
 
 const ItemList = (props) => {
     console.log(props)
+    const dispatch = useDispatch();
+    const handleAddItem = () => {
+        dispatch(addItem('dummyPizza'))
+    }
     return (
 
         <div className="lg:w-6/12 sm:w-10/12 mx-auto my-4 ">
             {
                 props.items.map((item => {
-                    const { name, price, description, imageId, isVeg } = item.card.info;
+                    const { name, price, description, imageId, isVeg,defaultPrice } = item.card.info;
                     return (
                         <div key={item.card.info.id}
                             className=" mx-auto flex justify-between border-b p-4 border-grey mb-5">
@@ -19,7 +25,7 @@ const ItemList = (props) => {
                                     <div className="flex items-center">
                                         <span> {name}</span>
                                     </div>
-                                    <span> Rs {price / 100}</span>
+                                    <span> Rs {price? (price/100) : defaultPrice/100}</span>
 
                                 </div>
                                 <p className=" text-xs  text-gray-500 text-left">{description}</p>
@@ -27,7 +33,10 @@ const ItemList = (props) => {
                             </div>
                             <div className="w-3/12 p-4">
                                 <div className="absolute">
-                                    <button className="p-2 ml-[10px] mt-[70px] rounded-lg bg-black text-white shadow-lg hover:bg-white  hover:text-black transition-all duration-[.3s]">
+                                    <button
+                                        className="p-2 ml-[10px] mt-[70px] rounded-lg bg-black text-white shadow-lg hover:bg-white  hover:text-black transition-all duration-[.3s]"
+                                        onClick={handleAddItem}
+                                    >
                                         Add +
                                     </button>
                                 </div>
