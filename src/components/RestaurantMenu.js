@@ -12,6 +12,7 @@ const RestaurantMenu = () => {
   const resInfo = useRestaurantMenuHook(resId);
 
   if (resInfo === null) return <ShimmerMenu />;
+  console.log(resInfo);
   const {
     name,
     cuisines,
@@ -36,7 +37,7 @@ const RestaurantMenu = () => {
         {cuisines.join(',') - costForTwoMessage}
       </p>
       {categories.map((category, index) => {
-        console.log(category)
+        // console.log(category)
         return (
 
           <RestraurentCategory

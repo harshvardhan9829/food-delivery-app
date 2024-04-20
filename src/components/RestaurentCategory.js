@@ -12,7 +12,7 @@ const RestraurentCategory = (props) => {
             setShowIndex(index)
         }
     }
-    console.log(props)
+    // console.log(props)
     return (
         <div>
             {/* header */}

@@ -18,6 +18,7 @@ function Body() {
     useEffect(() => {
         fetchData();
     }, [])
+
     const fetchData = async () => {
         const data = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.2599845&lng=72.9693624&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING');
         const json = await data.json();
@@ -31,7 +32,7 @@ function Body() {
     if (internetStatus === false) return <h1>Oops, looks like you are offline. Please check your internet connection!</h1>
 
 
-
+console.log(listOfRestraunts);
     return listOfRestraunts.length === 0 ? <Shimmer /> :
         (
             <div className='body container'>
